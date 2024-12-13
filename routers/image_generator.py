@@ -33,7 +33,7 @@ async def post_image(request: Request) -> JSONResponse:
         api_key = os.getenv("OPENAI_API_KEY")
 
         # Construct the target URI
-        target_uri = f"{dalle_endpoint}openai/deployments/{dalle_deployment_name}/images/generations?api-version={api_version}"
+        target_uri = f"{dalle_endpoint}"
 
 
         if not dalle_endpoint or not api_key:
@@ -45,9 +45,9 @@ async def post_image(request: Request) -> JSONResponse:
             "api-key": api_key
         }
         payload = {
-            "model": "dall-e-3",
-            "prompt": f"Generate a cute photo realistic image of a product in its packaging in front of a plain background for a product called <{name}> with a description <{description}> to be sold in an online pet supply store",
-            "n": 1
+            "prompt": f"Generate a photo-realistic image of a product in its packaging with a plain background. Product name: {name}, Description: {description}.",
+            "n": 1,  # Number of images
+            "size": "1024x1024"  # Image resolution
         }
 
         # Make the API call
